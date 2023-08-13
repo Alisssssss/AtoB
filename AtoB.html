@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interactive String Lookup</title>
+</head>
+<body>
+    <h1>Interactive String Lookup</h1>
+    <form id="lookupForm">
+        <label for="inputString">Enter String: </label>
+        <input type="text" id="inputString" name="inputString" required>
+        <button type="submit">Lookup</button>
+    </form>
+    <p id="result"></p>
+
+    <script>
+        document.getElementById("lookupForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const inputString = document.getElementById("inputString").value;
+
+            // Make an AJAX request to the server
+            fetch(`/lookup.php?inputString=${inputString}`)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("result").textContent = `Result: ${data}`;
+                })
+                .catch(error => {
+                    console.error("An error occurred:", error);
+                });
+        });
+    </script>
+</body>
+</html>
